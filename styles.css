@@ -16,6 +16,14 @@ footer {
   padding: 10px;
   background-color: #1a1a1a;
   color: #ccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+footer img {
+  height: 24px;
+  margin: 8px;
 }
 button#copyEmailBtn {
   background-color: #f6bd38;
