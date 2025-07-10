@@ -17,3 +17,18 @@ footer {
   background-color: #1a1a1a;
   color: #ccc;
 }
+button#copyEmailBtn {
+  background-color: #f6bd38;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+button#copyEmailBtn:hover {
+  background-color: #f6ff94;
+  color: chocolate;
+}
