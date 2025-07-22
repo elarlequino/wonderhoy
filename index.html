@@ -25,7 +25,7 @@
       <main>
         <img src="img/téléchargé.png" alt="skin minecraft" />
         <p>bienvenue sur mon site</p>
-        <button id="copyEmailBtn" onclick="copyEmail()">
+        <button class="box" id="copyEmailBtn" onclick="copyEmail()">
           Copier mon email
         </button>
       </main>
@@ -86,6 +86,12 @@
         }
       </style>
       <script>
+        gsap.to(".box", {
+          duration: 2,
+          rotation: 360,
+          backgroundColor: "#9d95ff",
+        });
+
         function copyEmail() {
           const email = "maxlefebvre2005@gmail.com"; // Remplace par ton email
         }
