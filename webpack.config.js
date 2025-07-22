@@ -1,42 +1,57 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js", // Point d'entrée pour le JS
+  entry: "./src/index.js",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    clean: true,
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: "babel-loader", // Pour la compatibilité JS
+        use: "babel-loader",
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
-        type: "asset/resource", // Gestion des images
+        type: "asset/resource",
+        generator: {
+          filename: "img/[name][ext]",
+        },
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html", // Utiliser le HTML existant
+      template: "./index.html",
     }),
+    // Copie des images dans /img dans le dossier de sortie
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "img"),
+          to: "img",
+        },
+      ],
+    }),
+    // Optimisation des images copié
     new ImageMinimizerPlugin({
       test: /\.(png|jpe?g|gif)$/i,
       minimizer: {
         implementation: ImageMinimizerPlugin.imageminGenerate,
         options: {
           plugins: [
-            ["imagemin-mozjpeg", { quality: 70 }],
-            ["imagemin-pngquant", { quality: [0.5, 0.8] }],
+            ["mozjpeg", { quality: 90 }],
+            ["pngquant", { quality: [0.5, 0.8] }],
           ],
         },
       },
     }),
   ],
-  mode: "production", // Mode de production pour minifier le JS
+  mode: "production",
 };
